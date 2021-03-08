@@ -26,11 +26,30 @@ def statistics(path):
                 if "def lambda_handler" in line:
                     flag = True
                 if flag and line.replace("\t", "").replace(" ", "").replace("\n", "").replace("\r", "") != "":
+                    # TODO: comment lines
                     line_count += 1
                     print(line_count, end="\t")
                     print(line.replace("\n", "").replace("\r", ""))
                 # TODO: close flag
-            print(line_count)
+            print(f"Total lines: {line_count}")
+
+    if ".js" in path:
+        # find "exports.handler" and count lines
+        with open(path, "r", errors="ignore") as f:
+            content = f.readlines()
+            flag = False
+            line_count = 0
+            for line in content:
+                if "exports.handler" in line:
+                    flag = True
+                if flag and line.replace("\t", "").replace(" ", "").replace("\n", "").replace("\r", "") != "":
+                    # TODO: comment lines
+                    line_count += 1
+                    print(line_count, end="\t")
+                    print(line.replace("\n", "").replace("\r", ""))
+                # TODO: close flag
+            print(f"Total lines: {line_count}")
+
     # TODO: js files
     print()
 
